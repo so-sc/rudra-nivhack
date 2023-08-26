@@ -3,32 +3,35 @@ import csv
 import random
 from datetime import datetime, timedelta
 
-# Constants
-num_files = 10000
-categories = ["Clothing", "Footwear", "Accessories"]
-products = {
-    "Clothing": ["Shirt", "Dress", "Trousers", "Sari", "Kurta"],
-    "Footwear": ["Shoes", "Sandals", "Sneakers", "Boots"],
-    "Accessories": ["Bags", "Hats", "Jewelry", "Belts"]
-}
+# Define constants
+num_files = 20000
+start_date = datetime(2022, 1, 1)
+categories = ["Men's Fashion", "Women's Fashion", "Kid's Fashion"]
+products = ["T-shirt", "Jeans", "Dress", "Saree", "Kurta", "Shoes", "Sweater", "Accessories"]
 
-# Create a directory to store CSV files if it doesn't exist
-if not os.path.exists('csv_files'):
-    os.makedirs('csv_files')
+# Create a directory to store the CSV files
+if not os.path.exists("./backend/test/dataset"):
+    os.makedirs("backend/test/dataset")
 
-# Write data to a CSV file
-filename = f'csv_files/file.csv'
-# Generate and save CSV files
+filename = f"backend/test/dataset/data.csv"
+# Generate CSV files
 for i in range(num_files):
-    # Generate data for a CSV file
-    pincode = random.randint(100000, 999999)
-    festival_date = datetime(2023, 10, 1) + timedelta(days=random.randint(0, 60))
-    category = random.choice(categories)
-    product = random.choice(products[category])
-    # Create CSV data
-    data = [[pincode, festival_date.strftime('%Y-%m-%d'), category, product]]
-    with open(filename, 'w', newline='') as file:
-        csv_writer = csv.writer(file)
-        csv_writer.writerow(['Pincode', 'Date', 'Category', 'Product'])
-        csv_writer.writerows(data)
-        file.close()
+    
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        
+        # Write header
+        writer.writerow(['Pincode', 'Date', 'Category', 'Product'])
+        i = 0
+        while i< num_files:
+            # Generate random data for each day in the year
+            current_date = start_date
+            pincode = random.randint(560001, 591346)
+            category = random.choice(categories)
+            product = random.choice(products)
+
+            writer.writerow([pincode, current_date.strftime('%Y-%m-%d'), category, product])
+            i+=1
+            current_date += timedelta(days=random.randint(1, 365))
+
+print("CSV files generated successfully.")
