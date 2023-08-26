@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Dispatch, SetStateAction } from "react"
 
 const invoices = [
   {
@@ -54,30 +55,40 @@ const invoices = [
   },
 ]
 
-export default function CSVDisplay() {
+interface Props {
+  click: boolean
+  setClick: Dispatch<SetStateAction<boolean>>
+}
+
+export default function CSVDisplay({ setClick, click }: Props) {
   return (
-    <>
-      <Table>
-        <TableCaption>Required Inventory.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Product</TableHead>
-            <TableHead>Region</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Quantity</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.product}>
-              <TableCell className="font-medium">{invoice.product}</TableCell>
-              <TableCell>{invoice.city}</TableCell>
-              <TableCell>{invoice.date}</TableCell>
-              <TableCell>{invoice.quantity}</TableCell>
+    click && (
+      <>
+        <h2 className="scroll-m-20 text-center mt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+          Inventory Generated
+        </h2>
+        <Table>
+          <TableCaption>Required Inventory.</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Product</TableHead>
+              <TableHead>Region</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead>Quantity</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+          </TableHeader>
+          <TableBody>
+            {invoices.map((invoice) => (
+              <TableRow key={invoice.product}>
+                <TableCell className="font-medium">{invoice.product}</TableCell>
+                <TableCell>{invoice.city}</TableCell>
+                <TableCell>{invoice.date}</TableCell>
+                <TableCell>{invoice.quantity}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </>
+    )
   )
 }

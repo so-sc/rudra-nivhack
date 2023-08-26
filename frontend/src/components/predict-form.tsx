@@ -10,9 +10,14 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Data } from "@/lib/types"
-import { FormEvent, useState } from "react"
+import { Dispatch, FormEvent, SetStateAction, useState } from "react"
 
-export default function PredictForm() {
+interface Props {
+  click: boolean
+  setClick: Dispatch<SetStateAction<boolean>>
+}
+
+export default function PredictForm({ setClick, click }: Props) {
   const [data, setData] = useState<Data>()
 
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
@@ -23,7 +28,11 @@ export default function PredictForm() {
   return (
     <div className="w-full">
       <form onSubmit={handleFormSubmit}>
-        <div className="flex flex-col items-center gap-4">
+        <div
+          className={`transition-all flex ${
+            click ? "flex-row" : "flex-col"
+          } items-center gap-4`}
+        >
           <div>
             <Select name="city">
               <SelectTrigger className="w-[280px] mx-auto">
@@ -41,7 +50,9 @@ export default function PredictForm() {
           <div>
             <DatePicker />
           </div>
-          <Button type="submit">Predict Data</Button>
+          <Button type="submit" onClick={() => setClick(true)}>
+            Predict Data
+          </Button>
         </div>
       </form>
     </div>
