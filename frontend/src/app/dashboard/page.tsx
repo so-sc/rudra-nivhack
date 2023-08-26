@@ -1,11 +1,9 @@
-import CSVDisplay from "@/components/csv-display"
-import PredictForm from "@/components/predict-form"
+import Dashboard from "@/components/dashboard"
 
-export default function page() {
+export default function Home() {
   return (
-    <section className="grid md:grid-cols-2">
-      <PredictForm />
-      <CSVDisplay />
-    </section>
+    <main>
+      <Dashboard />
+    </main>
   )
 }
