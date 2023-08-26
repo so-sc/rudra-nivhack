@@ -2,6 +2,11 @@ import joblib
 import pandas as pd
 
 def iphone_bangalore(date1):
+ """
+ :param date1:you must pass date in yyyy-mm-dd (string)
+
+ :return: print
+ """
  model_filename = 'iphone_bangalore.pkl'
  loaded_model = joblib.load(model_filename)
  input_date = pd.to_datetime(date1)
@@ -13,6 +18,11 @@ def iphone_bangalore(date1):
  print(f"Predicted iPhone sales for {input_date}: {predicted_sales[0]}")
 #yyyy-mm-dd
 def iphone_mumbai(date1):
+ """
+ :param date1:you must pass date in yyyy-mm-dd (string)
+
+ :return: print
+ """
  model_filename = 'iphone_mumbai.pkl'
  loaded_model = joblib.load(model_filename)
  input_date = pd.to_datetime(date1)
@@ -24,6 +34,11 @@ def iphone_mumbai(date1):
  print(f"Predicted iPhone sales for {input_date}: {predicted_sales[0]}")
 
 def kurtha_bangalore(date1):
+ """
+  :param date1:you must pass date in yyyy-mm-dd (string)
+
+  :return: print
+  """
  model_filename = 'kurtha_bangalore.pkl'
  loaded_model = joblib.load(model_filename)
  input_date = pd.to_datetime(date1)
@@ -35,6 +50,11 @@ def kurtha_bangalore(date1):
  print(f"Predicted kurtha sales for {input_date}: {predicted_sales[0]}")
 
 def kurtha_mumbai(date1):
+ """
+  :param date1:you must pass date in yyyy-mm-dd (string)
+
+  :return: print
+  """
  model_filename = 'kurtha_mumbai.pkl'
  loaded_model = joblib.load(model_filename)
  input_date = pd.to_datetime(date1)
@@ -47,6 +67,7 @@ def kurtha_mumbai(date1):
 
 
 if __name__ == '__main__':
+
     place = input("Enter the region: ")
     date = input("Enter the date: ")
 
