@@ -1,8 +1,9 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
-import "./globals.css"
 import { siteConfig } from "@/config/siteConfig"
+import { ClerkProvider } from "@clerk/nextjs"
+import "./globals.css"
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -17,10 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-inter">
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <Navbar />
-          {children}
-        </ThemeProvider>
+        <ClerkProvider>
+          <ThemeProvider attribute="class" defaultTheme="light">
+            <Navbar />
+            {children}
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   )

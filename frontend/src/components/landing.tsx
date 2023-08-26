@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/siteConfig"
+import { UserButton } from "@clerk/nextjs"
 import Link from "next/link"
 
 export default function Landing() {
@@ -25,6 +26,7 @@ export default function Landing() {
         >
           <Link href="/dashboard">Try Now!</Link>
         </Button>
+        <UserButton afterSignOutUrl="/" />
       </div>
       {/* <img
       src="https://source.unsplash.com/random?graph-sales"
