@@ -47,28 +47,6 @@
   }
 }
 
-:has(> .landing) {
-  position: relative;
-  background-image: url("/graph_bg.jpg");
-  background-size: cover;
-  isolation: isolate;
-}
-
-:has(> .landing)::after {
-  content: "";
-  position: absolute;
-  background-image: linear-gradient(
-    45deg,
-    black 50%,
-    darkblue,
-    lightblue,
-    black
-  );
-  z-index: -1;
-  opacity: 0.2;
-  inset: 0;
-}
-
 .no-scroll::-webkit-scrollbar {
   display: none;
 }

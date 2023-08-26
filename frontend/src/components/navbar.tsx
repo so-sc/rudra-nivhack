@@ -1,7 +1,7 @@
 "use client"
 
-import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { siteConfig } from "@/config/siteConfig"
+import { UserButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -9,11 +9,8 @@ export function Navbar() {
   const pathName = usePathname()
 
   return (
-    // If path is landing page then text color should be black because the bg in landing is dark
     <nav
-      className={`${
-        pathName === "/" ? "text-background" : ""
-      } flex fixed w-full backdrop-blur-sm items-center px-4 py-4 justify-between z-50`}
+      className={` flex fixed w-full backdrop-blur-sm items-center px-4 py-4 justify-between z-50`}
     >
       <div className="flex gap-8 items-center">
         <div>
@@ -30,7 +27,7 @@ export function Navbar() {
           </li>
         </ul>
       </div>
-      {/* <ThemeToggle /> */}
+      <UserButton afterSignOutUrl="/" />
     </nav>
   )
 }
