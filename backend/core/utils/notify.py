@@ -9,41 +9,36 @@ from email.mime.text import MIMEText
 from config import *
 
 class Notify:
-    def __init__(self, ph: Optional[str]):
-        self.ph = ph
+    def __init__(self):
+        pass
 
-    def sendMail(self, mail, msg):
+    def sendMail(self, mail, subject, body):
         try:
-            sender_email = "your_email@gmail.com"
-            sender_password = "your_password"
-            recipient_email = "recipient@example.com"
-            subject = "Subject of the Email"
-            message = "This is the body of the email."
             msg = MIMEMultipart()
-            msg['From'] = sender_email
-            msg['To'] = recipient_email
+            msg['From'] = EMAIL
+            msg['To'] = mail
             msg['Subject'] = subject
-            msg.attach(MIMEText(message, 'plain'))
+            msg.attach(MIMEText(body, 'plain'))
             server = smtplib.SMTP('smtp.gmail.com', 587)
             server.starttls()
-            server.login(sender_email, sender_password)
-            server.sendmail(sender_email, recipient_email, msg.as_string())
+            server.login(EMAIL, PASS)
+            server.sendmail(EMAIL, mail, msg.as_string())
             server.quit()
-
             print("Email sent successfully")
             return True
         except Exception:
             return False
 
-    def sendSMS(self, number, msg):
+    def sendSMS(self, ph, number, msg):
         try:
             client = Client(SID, AToken)
             # Send the SMS
             message = client.messages.create(
                 body=msg,
-                from_=self.ph,
+                from_=ph,
                 to=number
             )
+            print(message, message.sid)
             return True
         except Exception as e:
             print(f"Error: {e}")

@@ -7,6 +7,6 @@ from config import *
 router = APIRouter()
 
 
-@router.post()
+@router.post("/")
 async def postfuc():
     pass
