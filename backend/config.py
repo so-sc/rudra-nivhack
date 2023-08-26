@@ -8,3 +8,5 @@ AToken = 'your_auth_token'
 
 EMAIL = "your_email@gmail.com"
 PASS = "your_password"
+
+cat = ["iphone", "kurtha"]

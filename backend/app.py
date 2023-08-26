@@ -1,5 +1,5 @@
 # Team Rudra - NivHack2023
-# 
+
 
 
 import uvicorn
@@ -8,7 +8,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from config import *
 import router.app_router as app_router
-import router.sckt as sckt_router
 
 app = FastAPI(
     title="Rudra",
@@ -25,6 +24,5 @@ app.add_middleware(
 )
 
 app.include_router(app_router.router, prefix="/api/v1")
-app.include_router(sckt_router.router, prefix="/api/v1/ws")
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
