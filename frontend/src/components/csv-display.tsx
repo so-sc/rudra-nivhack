@@ -67,7 +67,7 @@ export default function CSVDisplay({ setClick, click }: Props) {
         <h2 className="scroll-m-20 text-center mt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
           Inventory Generated
         </h2>
-        <Table>
+        <Table className="overflow-x-auto min-w-[40rem]">
           <TableCaption>Required Inventory.</TableCaption>
           <TableHeader>
             <TableRow>

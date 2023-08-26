@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Landing() {
   return (
-    <section className="landing container p-24 min-h-screen flex drop-shadow-lg text-white items-center">
+    <section className="landing container py-24 px-4 md:p-24 min-h-screen flex drop-shadow-lg text-white items-center">
       {/* <img src="/graph_bg.jpg" alt="Graph Growing in Background" /> */}
       <div className="flex flex-col gap-2 text-left items-start">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">

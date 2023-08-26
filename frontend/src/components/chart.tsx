@@ -57,7 +57,7 @@ const data = [
 
 export function Chart() {
   return (
-    <Card className="bg-gradient-to-tr from-slate-100 to-slate-200 border-2 border-slate-200 shadow-lg shadow-slate-400 flex flex-col w-11/12">
+    <Card className="bg-gradient-to-tr from-slate-100 to-slate-100 border-2 border-slate-300 shadow-lg shadow-slate-400 flex flex-col w-11/12">
       <CardHeader>
         <CardTitle>Inventory Status</CardTitle>
         <CardDescription>

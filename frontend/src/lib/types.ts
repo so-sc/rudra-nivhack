@@ -1,4 +1,4 @@
 export interface Data {
-  city: string
-  date: Date
+  city?: string
+  date?: string
 }

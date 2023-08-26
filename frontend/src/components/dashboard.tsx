@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [click, setClick] = useState(false)
 
   return (
-    <div className="bg-gradient-to-tr from-slate-300 to-slate-100 p-24 flex flex-col gap-16">
+    <div className="bg-gradient-to-tr min-h-screen from-slate-300 to-slate-100 py-24 px-4 md:p-24 flex flex-col gap-16">
       <div className="text-center">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-6xl">
           Dashboard

@@ -15,14 +15,12 @@ import {
 import { Data } from "@/lib/types"
 
 interface DatePickerProps {
-  setData?: (date: Date | undefined) => void
+  setData: React.Dispatch<React.SetStateAction<Data | undefined>>
+  data: Data | undefined
 }
 
-export function DatePicker({ setData }: DatePickerProps) {
+export function DatePicker({ setData, data }: DatePickerProps) {
   const [date, setDate] = React.useState<Date>()
-  React.useEffect(() => {
-    // setData(date)
-  }, [date])
 
   return (
     <Popover>
@@ -30,7 +28,7 @@ export function DatePicker({ setData }: DatePickerProps) {
         <Button
           variant={"outline"}
           className={cn(
-            "w-[280px] justify-start text-left font-normal",
+            "min-w-[280px] justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
         >
@@ -38,12 +36,15 @@ export function DatePicker({ setData }: DatePickerProps) {
           {date ? format(date, "PPP") : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className="w-full p-0">
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate}
           initialFocus
+          onDayClick={(e) =>
+            setData({ ...data, date: e.toISOString().split("T")[0] })
+          }
         />
       </PopoverContent>
     </Popover>
