@@ -2,25 +2,45 @@
 
 from twilio.rest import Client
 from typing import Optional
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
-# Your Twilio Account SID and Auth Token
-account_sid = 'your_account_sid'
-auth_token = 'your_auth_token'
+from config import *
 
 class Notify:
     def __init__(self, ph: Optional[str]):
         self.ph = ph
 
+    def sendMail(self, mail, msg):
+        try:
+            sender_email = "your_email@gmail.com"
+            sender_password = "your_password"
+            recipient_email = "recipient@example.com"
+            subject = "Subject of the Email"
+            message = "This is the body of the email."
+            msg = MIMEMultipart()
+            msg['From'] = sender_email
+            msg['To'] = recipient_email
+            msg['Subject'] = subject
+            msg.attach(MIMEText(message, 'plain'))
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, recipient_email, msg.as_string())
+            server.quit()
+
+            print("Email sent successfully")
+            return True
+        except Exception:
+            return False
+
     def sendSMS(self, number, msg):
         try:
-            client = Client(account_sid, auth_token)
-
-            # Details for sending SMS
-            message_body = 'Hello from Twilio! This is a test message.'
-
+            client = Client(SID, AToken)
             # Send the SMS
             message = client.messages.create(
-                body=message_body,
+                body=msg,
                 from_=self.ph,
                 to=number
             )
