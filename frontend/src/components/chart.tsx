@@ -34,14 +34,30 @@ const data = [
     month: "Jul",
   },
   {
-    sales: 600,
+    sales: 400,
     month: "Aug",
+  },
+  {
+    sales: 450,
+    month: "Sep",
+  },
+  {
+    sales: 600,
+    month: "Oct",
+  },
+  {
+    sales: 578,
+    month: "Nov",
+  },
+  {
+    sales: 600,
+    month: "Dec",
   },
 ]
 
 export function Chart() {
   return (
-    <Card>
+    <Card className="bg-gradient-to-tr from-slate-100 to-slate-200 border-2 border-slate-200 shadow-lg shadow-slate-400 flex flex-col w-11/12">
       <CardHeader>
         <CardTitle>Inventory Status</CardTitle>
         <CardDescription>
@@ -49,7 +65,7 @@ export function Chart() {
         </CardDescription>
       </CardHeader>
       <CardContent className="pb-4">
-        <div className="h-[200px]">
+        <div className="aspect-video h-[50%]">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={data}
@@ -99,7 +115,13 @@ export function Chart() {
                 dataKey="sales"
                 activeDot={{
                   r: 6,
-                  style: { fill: "var(--theme-primary)", opacity: 0.25 },
+                  style: { fill: "lightpink" },
+                }}
+                style={{
+                  stroke: "fuchsia",
+                }}
+                dot={{
+                  r: 4,
                 }}
               />
               {/* <Line

@@ -19,8 +19,11 @@ export default function Landing() {
           contentment through data-driven insights. Join for smarter inventory
           strategies and predictive accuracy in a dynamic market.
         </p>
-        <Button asChild className="mt-2 border-white w-1/3">
-          <Link href="/dashboard">Predict Inventory</Link>
+        <Button
+          asChild
+          className="mt-2 border-white w-1/3 bg-white text-black hover:bg-slate-200 focus:outline-ring ring-offset-4"
+        >
+          <Link href="/dashboard">Try Now!</Link>
         </Button>
       </div>
       {/* <img

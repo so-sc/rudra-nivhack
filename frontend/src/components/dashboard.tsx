@@ -9,13 +9,16 @@ export default function Dashboard() {
   const [click, setClick] = useState(false)
 
   return (
-    <div className="p-24 flex flex-col min-h-screen gap-16">
+    <div className="bg-gradient-to-tr from-slate-300 to-slate-100 p-24 flex flex-col gap-16">
       <div className="text-center">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-6xl">
           Dashboard
         </h1>
-        <h2 className="scroll-m-20 mt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-          Predict the Future of Inventory.
+        <h2 className="scroll-m-20 mt-4 text-3xl lg:text-4xl font-semibold tracking-tight transition-colors first:mt-0">
+          <span className="bg-clip-text text-transparent font-bold bg-gradient-to-tr from-fuchsia-400 to-fuchsia-800">
+            Predict
+          </span>{" "}
+          the Future of Inventory.
         </h2>
       </div>
       <div
