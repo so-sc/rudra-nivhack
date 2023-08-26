@@ -28,9 +28,7 @@ export default function PredictForm({ setClick, click }: Props) {
     <div className="w-full flex mb-16">
       <form onSubmit={handleFormSubmit} className="w-full">
         <div
-          className={`transition-all w-full flex ${
-            click ? "flex-col md:flex-row" : "flex-col"
-          } items-center gap-4`}
+          className={`transition-all w-full flex flex-col items-center gap-4`}
         >
           <div className="w-full border-black border">
             <Select

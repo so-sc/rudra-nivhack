@@ -99,6 +99,15 @@
   inset: 0;
 }
 
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* * {
   outline: 1px solid red;
 } */

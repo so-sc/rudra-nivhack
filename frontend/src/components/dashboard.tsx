@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [click, setClick] = useState(false)
 
   return (
-    <div className="bg-gradient-to-tr min-h-screen from-slate-300 to-slate-100 py-24 px-4 md:p-24 flex flex-col gap-16">
+    <div className="min-h-screen bg-gradient-to-tr from-slate-300 to-slate-100 py-24 px-4 md:p-24 flex flex-col gap-8">
       <div className="text-center">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-6xl">
           Dashboard
@@ -22,12 +22,10 @@ export default function Dashboard() {
         </h2>
       </div>
       <div
-        className={`py-4 mx-auto grid ${
-          click ? "grid-cols-1" : "w-full lg:grid-cols-2"
-        } gap-8 place-items-center`}
+        className={`py-4 mx-auto grid w-full lg:grid-cols-2 gap-8 place-items-center`}
       >
         <PredictForm setClick={setClick} click={click} />
-        {!click && <Chart />}
+        <Chart />
       </div>
       <CSVDisplay setClick={setClick} click={click} />
     </div>
