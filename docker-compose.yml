@@ -1,17 +1,6 @@
 version: '3.3'
 
 services:
-  frontend:
-    # env_file:
-    #   - frontend/.env
-    build:
-      context: ./frontend/
-      dockerfile: ./Dockerfile
-    ports:
-      - "0.0.0.0:80:80"
-    expose:
-      - 80
-
   backend:
     # env_file:
     #   - backend/.env
@@ -19,6 +8,23 @@ services:
       context: ./backend/
       dockerfile: ./Dockerfile
     ports:
-      - "0.0.0.0:8000:8000"
+      - "8000:8000"
     expose:
       - 8000
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - frontend
+
+  frontend:
+    # env_file:
+    #   - frontend/.env
+    build:
+      context: ./frontend/
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - ./frontend:/app
