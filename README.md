@@ -13,7 +13,7 @@ docker-compose up
 
 ## Team Members
 
-- **[Deveesh Shetty]()** <Cap>
-- **[Akkil M G]()**
-- **[Srujan Rai]()**
-- **[Rishab Budale]()**
+- **[Deveesh Shetty](https://github.com/)** <Cap>
+- **[Akkil M G](https://github.com/)**
+- **[Srujan Rai](https://github.com/)**
+- **[Rishab Budale](https://github.com/)**
