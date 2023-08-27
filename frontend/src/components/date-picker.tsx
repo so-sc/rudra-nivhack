@@ -43,7 +43,10 @@ export function DatePicker({ setData, data }: DatePickerProps) {
           onSelect={setDate}
           initialFocus
           onDayClick={(e) =>
-            setData({ ...data, date: e.toISOString().split("T")[0] })
+            setData({
+              ...data,
+              date: `${e.getDate()}-${e.getMonth() + 1}-${e.getFullYear()}`,
+            })
           }
         />
       </PopoverContent>

@@ -1,6 +1,7 @@
 "use client"
 
 import { DatePicker } from "@/components/date-picker"
+import axios from "axios"
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -11,17 +12,26 @@ import {
 } from "@/components/ui/select"
 import { Data } from "@/lib/types"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
 
 export default function PredictForm() {
   const [data, setData] = useState<Data>()
-  const router = useRouter()
+  const [response, setResponse] = useState()
 
-  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    router.push("/inventory")
-    console.log(data)
+
+    const res = await axios.post(
+      `http://localhost:8000/api/v1/category-prediction?city=${data?.city}&date=${data?.date}`,
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+        },
+      }
+    )
+
+    setResponse((prev) => (prev = res.data))
   }
   return (
     <div className="w-full flex mb-16">
@@ -45,7 +55,17 @@ export default function PredictForm() {
             <DatePicker data={data} setData={setData} />
           </div>
           <Button type="submit" className="max-w-md w-full">
-            Predict Data
+            <Link
+              href={{
+                pathname: "/inventory",
+                query: {
+                  data: response,
+                },
+              }}
+              className="w-full"
+            >
+              Predict Data
+            </Link>
           </Button>
         </div>
       </form>

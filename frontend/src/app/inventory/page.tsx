@@ -1,8 +1,11 @@
+"use client"
+
 import { Chart } from "@/components/chart"
 import CSVDisplay from "@/components/csv-display"
 import { Sales } from "@/lib/types"
+import { useSearchParams } from "next/navigation"
 
-export default function page() {
+export default function page({ searchParams }: any) {
   const data: Sales[] = [
     {
       sales: 400,
@@ -50,6 +53,7 @@ export default function page() {
     },
   ]
 
+  console.log(searchParams)
   return (
     <main className="min-h-screen pb-24 flex flex-col lg:flex-row pr-16 gap-4 items-center bg-gradient-to-r from-purple-50 to-purple-100">
       <div className="w-11/12">

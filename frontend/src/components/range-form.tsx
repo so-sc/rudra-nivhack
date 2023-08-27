@@ -11,7 +11,7 @@ import { Data } from "@/lib/types"
 import Link from "next/link"
 import { FormEvent, useState } from "react"
 import { Slider } from "@/components/ui/slider"
-import { useRouter } from "next/navigation"
+import axios from "axios"
 
 type RangeData = Data & {
   days?: number
@@ -19,13 +19,28 @@ type RangeData = Data & {
 
 export default function RangeForm() {
   const [data, setData] = useState<RangeData>()
-  const router = useRouter()
+  const [response, setResponse] = useState()
 
-  function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
     console.log(data)
-    router.push("/range-chart")
+
+    const res = await axios.post(
+      `http://localhost:8000/api/v1/days-predictions?city=${data?.city}&dates=${data?.date}&day=${data?.days}`,
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+        },
+      }
+    )
+
+    setResponse(res.data)
+
+    console.log(res)
   }
+
   return (
     <div className="w-full flex mb-16">
       <form onSubmit={handleFormSubmit} className="w-full">
@@ -57,7 +72,17 @@ export default function RangeForm() {
             <p className="basis-1/4 text-right">{data?.days || 7} Days</p>
           </div>
           <Button type="submit" className="max-w-md w-full">
-            Get Graph
+            <Link
+              href={{
+                pathname: "/inventory",
+                query: {
+                  data: response,
+                },
+              }}
+              className="w-full"
+            >
+              Get Graph
+            </Link>
           </Button>
         </div>
       </form>
