@@ -20,8 +20,5 @@ httpx==0.16.1
 pandas
 joblib
 scikit-learn==1.2.2
-# # google client
-# google-cloud-storage
 
-# firebase-admin==2.13.0
-# google-cloud-firestore==0.29.0
+firebase-admin
