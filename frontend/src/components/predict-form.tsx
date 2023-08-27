@@ -128,7 +128,7 @@ export default function PredictForm() {
           </div>
         </form>
       </div>
-      {res ? (
+      {res && data ? (
         <div className="">
           <CSVDisplay data={data} res={res} />
         </div>
