@@ -1,15 +1,64 @@
 "use client"
 
 import { Chart } from "@/components/chart"
-import CSVDisplay from "@/components/csv-display"
 import PredictForm from "@/components/predict-form"
+import { Sales } from "@/lib/types"
 import { useState } from "react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import RangeForm from "@/components/range-form"
 
 export default function Dashboard() {
   const [click, setClick] = useState(false)
 
+  const data: Sales[] = [
+    {
+      sales: 400,
+      month: "Jan",
+    },
+    {
+      sales: 300,
+      month: "Feb",
+    },
+    {
+      sales: 200,
+      month: "Mar",
+    },
+    {
+      sales: 278,
+      month: "Apr",
+    },
+    {
+      sales: 189,
+      month: "Jun",
+    },
+    {
+      sales: 239,
+      month: "Jul",
+    },
+    {
+      sales: 400,
+      month: "Aug",
+    },
+    {
+      sales: 450,
+      month: "Sep",
+    },
+    {
+      sales: 600,
+      month: "Oct",
+    },
+    {
+      sales: 578,
+      month: "Nov",
+    },
+    {
+      sales: 600,
+      month: "Dec",
+    },
+  ]
+
   return (
-    <div className="dashboard transition-all duration-500 bg-size-200 bg-pos-0 hover:bg-pos-100 min-h-screen bg-gradient-to-r from-purple-100 to-purple-200 py-24 px-4 md:p-24 flex flex-col gap-8">
+    <div className="dashboard min-h-screen py-24 px-4 md:p-24 flex flex-col gap-8">
       <div className="text-center">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-6xl">
           Dashboard
@@ -24,10 +73,30 @@ export default function Dashboard() {
       <div
         className={`py-4 mx-auto grid w-full lg:grid-cols-2 gap-8 place-items-center`}
       >
-        <PredictForm setClick={setClick} click={click} />
-        <Chart />
+        <Tabs
+          defaultValue="specific"
+          className="w-full flex flex-col items-center"
+        >
+          <TabsList>
+            <TabsTrigger value="specific">Specific Date</TabsTrigger>
+            <TabsTrigger value="range">Range</TabsTrigger>
+          </TabsList>
+          <TabsContent value="specific" className="w-full">
+            <PredictForm />
+          </TabsContent>
+          <TabsContent value="range">
+            <RangeForm />
+          </TabsContent>
+        </Tabs>
+
+        <div className="w-11/12">
+          <Chart
+            data={data}
+            title="Inventory Status"
+            description="The Graph showing Inventory status of Product X"
+          />
+        </div>
       </div>
-      <CSVDisplay setClick={setClick} click={click} />
     </div>
   )
 }

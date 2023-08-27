@@ -1,4 +1,4 @@
-import { useTheme } from "next-themes"
+"use client"
 import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts"
 import {
   Card,
@@ -7,62 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Sales } from "@/lib/types"
 
-const data = [
-  {
-    sales: 400,
-    month: "Jan",
-  },
-  {
-    sales: 300,
-    month: "Feb",
-  },
-  {
-    sales: 200,
-    month: "Mar",
-  },
-  {
-    sales: 278,
-    month: "Apr",
-  },
-  {
-    sales: 189,
-    month: "Jun",
-  },
-  {
-    sales: 239,
-    month: "Jul",
-  },
-  {
-    sales: 400,
-    month: "Aug",
-  },
-  {
-    sales: 450,
-    month: "Sep",
-  },
-  {
-    sales: 600,
-    month: "Oct",
-  },
-  {
-    sales: 578,
-    month: "Nov",
-  },
-  {
-    sales: 600,
-    month: "Dec",
-  },
-]
+interface ChartProps {
+  data: Sales[]
+  title: string
+  description: string
+}
 
-export function Chart() {
+export function Chart({ data, title, description }: ChartProps) {
   return (
-    <Card className="bg-gradient-to-tr from-slate-100 to-slate-100 border-2 border-slate-300 shadow-lg shadow-slate-400 flex flex-col w-11/12">
+    <Card className="bg-gradient-to-tr from-slate-100 to-slate-100 border-2 border-slate-300 shadow-lg shadow-slate-400 flex flex-col">
       <CardHeader>
-        <CardTitle>Inventory Status</CardTitle>
-        <CardDescription>
-          The Graph showing Inventory status of Product X
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="pb-4">
         <div className="aspect-video h-[50%]">

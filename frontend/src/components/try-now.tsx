@@ -8,7 +8,9 @@ export default function TryNow() {
   const { isSignedIn } = useUser()
   return (
     <Button asChild className="mt-2 border-white w-1/3">
-      <Link href={!isSignedIn ? "/sign-in" : "/dashboard"}>Try Now!</Link>
+      <Link href={!isSignedIn ? "/sign-in" : "/dashboard"} className="w-full">
+        Try Now!
+      </Link>
     </Button>
   )
 }

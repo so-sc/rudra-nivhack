@@ -1,8 +1,6 @@
-import { Button } from "@/components/ui/button"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -55,40 +53,33 @@ const invoices = [
   },
 ]
 
-interface Props {
-  click: boolean
-  setClick: Dispatch<SetStateAction<boolean>>
-}
-
-export default function CSVDisplay({ setClick, click }: Props) {
+export default function CSVDisplay() {
   return (
-    click && (
-      <>
-        <h2 className="scroll-m-20 text-center mt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-          Inventory Generated
-        </h2>
-        <Table className="overflow-x-scroll min-w-[40rem] no-scroll">
-          <TableCaption>Required Inventory.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Region</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Quantity</TableHead>
+    <div className="p-24">
+      <h2 className="scroll-m-20 mb-8 text-center mt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+        Inventory Generated
+      </h2>
+      <Table className="overflow-x-scroll min-w-[25rem] no-scroll">
+        {/* <TableCaption>Required Inventory.</TableCaption> */}
+        <TableHeader>
+          <TableRow>
+            <TableHead>Product</TableHead>
+            <TableHead>Region</TableHead>
+            <TableHead>Date</TableHead>
+            <TableHead>Quantity</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {invoices.map((invoice) => (
+            <TableRow key={invoice.product}>
+              <TableCell className="font-medium">{invoice.product}</TableCell>
+              <TableCell>{invoice.city}</TableCell>
+              <TableCell>{invoice.date}</TableCell>
+              <TableCell>{invoice.quantity}</TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {invoices.map((invoice) => (
-              <TableRow key={invoice.product}>
-                <TableCell className="font-medium">{invoice.product}</TableCell>
-                <TableCell>{invoice.city}</TableCell>
-                <TableCell>{invoice.date}</TableCell>
-                <TableCell>{invoice.quantity}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </>
-    )
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   )
 }

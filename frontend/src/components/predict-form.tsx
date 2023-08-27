@@ -10,14 +10,10 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Data } from "@/lib/types"
-import { Dispatch, FormEvent, SetStateAction, useState } from "react"
+import Link from "next/link"
+import { FormEvent, useState } from "react"
 
-interface Props {
-  click: boolean
-  setClick: Dispatch<SetStateAction<boolean>>
-}
-
-export default function PredictForm({ setClick, click }: Props) {
+export default function PredictForm() {
   const [data, setData] = useState<Data>()
 
   function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
@@ -50,12 +46,8 @@ export default function PredictForm({ setClick, click }: Props) {
           <div className="w-full border-black border">
             <DatePicker data={data} setData={setData} />
           </div>
-          <Button
-            type="submit"
-            className="max-w-md w-full"
-            onClick={() => setClick(true)}
-          >
-            Predict Data
+          <Button type="submit" className="max-w-md w-full" asChild>
+            <Link href="/inventory">Predict Data</Link>
           </Button>
         </div>
       </form>
