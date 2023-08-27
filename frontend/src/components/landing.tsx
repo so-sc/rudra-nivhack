@@ -4,8 +4,8 @@ import { siteConfig } from "@/config/siteConfig"
 
 export default function Landing() {
   return (
-    <section className="py-24 px-4 md:p-24 min-h-screen flex drop-shadow-lg items-center overflow-hidden">
-      <div className="px-8 flex flex-col gap-2 text-center items-center">
+    <section className="py-24 px-4 md:p-24 min-h-screen flex flex-col lg:flex-row drop-shadow-lg items-center overflow-hidden">
+      <div className="px-8 flex w-3/5 flex-col gap-2 text-center items-center">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           {siteConfig.name}
         </h1>
@@ -19,14 +19,9 @@ export default function Landing() {
         </p>
         <TryNow />
       </div>
-      <div>
+      <div className="flex ml-auto">
         <Hero />
       </div>
-      {/* <img
-      src="https://source.unsplash.com/random?graph-sales"
-      alt="Random Datas"
-      className="min-h-screen object-cover -z-10"
-    /> */}
     </section>
   )
 }

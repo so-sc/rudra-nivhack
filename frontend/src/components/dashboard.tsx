@@ -3,13 +3,10 @@
 import { Chart } from "@/components/chart"
 import PredictForm from "@/components/predict-form"
 import { Sales } from "@/lib/types"
-import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import RangeForm from "@/components/range-form"
 
 export default function Dashboard() {
-  const [click, setClick] = useState(false)
-
   const data: Sales[] = [
     {
       sales: 400,
@@ -75,7 +72,7 @@ export default function Dashboard() {
       >
         <Tabs
           defaultValue="specific"
-          className="w-full flex flex-col items-center"
+          className="w-full flex flex-col items-center h-72 justify-start"
         >
           <TabsList>
             <TabsTrigger value="specific">Specific Date</TabsTrigger>
@@ -84,7 +81,7 @@ export default function Dashboard() {
           <TabsContent value="specific" className="w-full">
             <PredictForm />
           </TabsContent>
-          <TabsContent value="range">
+          <TabsContent value="range" className="w-full">
             <RangeForm />
           </TabsContent>
         </Tabs>
