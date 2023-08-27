@@ -67,9 +67,7 @@ export default function Dashboard() {
           the Future of Inventory.
         </h2>
       </div>
-      <div
-        className={`py-4 mx-auto grid w-full lg:grid-cols-2 gap-8 place-items-center`}
-      >
+      <div className={`py-4 mx-auto grid w-full gap-8 place-items-center`}>
         <Tabs
           defaultValue="specific"
           className="w-full flex flex-col items-center h-72 justify-start min-h-screen"
@@ -85,14 +83,6 @@ export default function Dashboard() {
             <RangeForm />
           </TabsContent>
         </Tabs>
-
-        <div className="w-11/12">
-          <Chart
-            data={data}
-            title="Inventory Status"
-            description="The Graph showing Inventory status of Product X"
-          />
-        </div>
       </div>
     </div>
   )

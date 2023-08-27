@@ -99,8 +99,8 @@ export default function PredictForm() {
   ]
 
   return (
-    <>
-      <div className="w-full flex mb-16">
+    <div className="flex flex-col">
+      <div className="w-1/2  mx-auto flex">
         <form onSubmit={handleFormSubmit} className="w-full">
           <div className="transition-all w-full flex flex-col items-center gap-4">
             <div className="w-full border-black border">
@@ -128,15 +128,13 @@ export default function PredictForm() {
           </div>
         </form>
       </div>
-      <div>
-        {res ? (
-          <div className="">
-            <CSVDisplay data={data} res={res} />
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-    </>
+      {res ? (
+        <div className="">
+          <CSVDisplay data={data} res={res} />
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
   )
 }
