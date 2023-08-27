@@ -2,7 +2,6 @@ fastapi==0.103.0
 typing
 twilio
 uvicorn[standard]
-# pydantic==1.7.3
 python-dotenv==0.15.0
 python-multipart
 requests
@@ -20,5 +19,3 @@ httpx==0.16.1
 pandas
 joblib
 scikit-learn==1.2.2
-
-firebase-admin
