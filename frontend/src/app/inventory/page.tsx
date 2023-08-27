@@ -2,10 +2,12 @@
 
 import { Chart } from "@/components/chart"
 import CSVDisplay from "@/components/csv-display"
+import { PredictionContext } from "@/components/provider/prediction-provider"
 import { Sales } from "@/lib/types"
 import { useSearchParams } from "next/navigation"
+import { useContext } from "react"
 
-export default function page({ searchParams }: any) {
+export default function page() {
   const data: Sales[] = [
     {
       sales: 400,
@@ -53,7 +55,8 @@ export default function page({ searchParams }: any) {
     },
   ]
 
-  console.log(searchParams)
+  const { specificData } = useContext(PredictionContext)
+  console.log(specificData)
   return (
     <main className="min-h-screen pb-24 flex flex-col lg:flex-row pr-16 gap-4 items-center bg-gradient-to-r from-purple-50 to-purple-100">
       <div className="w-11/12">

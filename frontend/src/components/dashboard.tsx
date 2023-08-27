@@ -72,13 +72,13 @@ export default function Dashboard() {
       >
         <Tabs
           defaultValue="specific"
-          className="w-full flex flex-col items-center h-72 justify-start"
+          className="w-full flex flex-col items-center h-72 justify-start min-h-screen"
         >
           <TabsList>
             <TabsTrigger value="specific">Specific Date</TabsTrigger>
             <TabsTrigger value="range">Range</TabsTrigger>
           </TabsList>
-          <TabsContent value="specific" className="w-full">
+          <TabsContent value="specific" className="w-full min-h-screen">
             <PredictForm />
           </TabsContent>
           <TabsContent value="range" className="w-full">

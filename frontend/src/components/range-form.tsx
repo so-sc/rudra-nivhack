@@ -11,7 +11,7 @@ import { Data } from "@/lib/types"
 import Link from "next/link"
 import { FormEvent, useState } from "react"
 import { Slider } from "@/components/ui/slider"
-import axios from "axios"
+import { useQuery } from "@tanstack/react-query"
 
 type RangeData = Data & {
   days?: number
@@ -21,25 +21,32 @@ export default function RangeForm() {
   const [data, setData] = useState<RangeData>()
   const [response, setResponse] = useState()
 
+  const {
+    isInitialLoading,
+    error,
+    data: res,
+    refetch,
+  } = useQuery({
+    queryKey: ["days-predictions"],
+    enabled: false,
+    queryFn: () =>
+      fetch(
+        `http://localhost:8000/api/v1/days-predictions?city=${data?.city}&dates=${data?.date}&day=${data?.days}`,
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      ).then((res) => res.json()),
+  })
+
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
-    console.log(data)
-
-    const res = await axios.post(
-      `http://localhost:8000/api/v1/days-predictions?city=${data?.city}&dates=${data?.date}&day=${data?.days}`,
-      {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-        },
-      }
-    )
-
-    setResponse(res.data)
-
-    console.log(res)
+    refetch()
   }
+  console.log(res)
 
   return (
     <div className="w-full flex mb-16">
