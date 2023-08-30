@@ -55,39 +55,5 @@ import { Dispatch, SetStateAction } from "react"
 // ]
 
 export default function CSVDisplay({ data, res }: any) {
-  return (
-    <div>
-      <Table className="overflow-x-scroll min-w-[25rem] no-scroll">
-        {/* <TableCaption>Required Inventory.</TableCaption> */}
-        <TableHeader>
-          <TableRow>
-            <TableHead>Product</TableHead>
-            <TableHead>Region</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Quantity</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">Iphone</TableCell>
-            <TableCell className="font-medium">{data.city}</TableCell>
-            <TableCell className="font-medium">{data.date}</TableCell>
-            <TableCell className="font-medium">{res.iphone}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium">Kurtha</TableCell>
-            <TableCell className="font-medium">{data.city}</TableCell>
-            <TableCell className="font-medium">{data.date}</TableCell>
-            <TableCell className="font-medium">{res.kurtha}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell className="font-medium">Umbrella</TableCell>
-            <TableCell className="font-medium">{data.city}</TableCell>
-            <TableCell className="font-medium">{data.date}</TableCell>
-            <TableCell className="font-medium">{res.umbrella}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
-  )
+  return <div></div>
 }
