@@ -29,7 +29,7 @@ export default function RangeForm() {
   const [data, setData] = useState<RangeData>()
   const [response, setResponse] = useState()
 
-  const {
+  const { 
     isInitialLoading,
     error,
     data: res,

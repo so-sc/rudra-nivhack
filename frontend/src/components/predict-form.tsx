@@ -16,41 +16,16 @@ import { useQuery } from "@tanstack/react-query"
 import { PredictionContext } from "@/components/provider/prediction-provider"
 import CSVDisplay from "@/components/csv-display"
 import { Chart } from "@/components/chart"
+import { Bar, BarChart, ResponsiveContainer } from "recharts"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export default function PredictForm() {
-  const [data, setData] = useState<Data>()
-
-  const { specificData, setSpecificData } = useContext(PredictionContext)
-
-  const {
-    isInitialLoading,
-    error,
-    data: res,
-    refetch,
-  } = useQuery({
-    queryKey: ["cateogry-prediction"],
-    enabled: false,
-    queryFn: () =>
-      fetch(
-        `http://localhost:8000/api/v1/category-prediction?city=${data?.city}&date=${data?.date}`,
-        {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      ).then((res) => res.json()),
-  })
-
-  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    await refetch()
-
-    console.log(res)
-    setSpecificData?.(res)
-  }
-
   const sampleData: Sales[] = [
     {
       sales: 400,
@@ -98,11 +73,45 @@ export default function PredictForm() {
     },
   ]
 
+  const [data, setData] = useState<Data>()
+
+  const { specificData, setSpecificData } = useContext(PredictionContext)
+
+  const {
+    isInitialLoading,
+    error,
+    data: res,
+    refetch,
+  } = useQuery({
+    queryKey: ["cateogry-prediction"],
+    enabled: false,
+    queryFn: () =>
+      fetch(
+        `http://localhost:8000/api/v1/category-prediction?city=${data?.city}&date=${data?.date}`,
+        {
+          method: "POST",
+          headers: {
+            accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      ).then((res) => res.json()),
+  })
+
+  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    await refetch()
+
+    setSpecificData?.(res)
+  }
+
+  console.log({ res, specificData, data })
+
   return (
     <div className="flex flex-col">
-      <div className="w-1/2  mx-auto flex">
-        <form onSubmit={handleFormSubmit} className="w-full">
-          <div className="transition-all w-full flex flex-col items-center gap-4">
+      <div className="mx-auto flex">
+        <form onSubmit={handleFormSubmit} className="w-full mt-4">
+          <div className="transition-all w-full flex flex-col lg:flex-row items-center gap-4">
             <div className="w-full border-black border">
               <Select
                 name="city"
@@ -129,8 +138,38 @@ export default function PredictForm() {
         </form>
       </div>
       {res && data ? (
-        <div className="">
-          <CSVDisplay data={data} res={res} />
+        <div>
+          {/* <h2 className="scroll-m-20 text-center text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+            Inventory Generated
+          </h2> */}
+          <div className="w-full grid lg:grid-cols-2 mt-16">
+            <div className="mx-4 self-center">
+              <CSVDisplay data={data} res={res} />
+            </div>
+            <Card className="bg-gradient-to-tr from-slate-100 to-slate-100 border-2 border-slate-300 shadow-lg shadow-slate-400 flex flex-col ">
+              <CardHeader>
+                <CardTitle>Bar Chart</CardTitle>
+                <CardDescription>Testing things out</CardDescription>
+              </CardHeader>
+              <CardContent className="flex pb-4">
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart
+                    width={150}
+                    height={40}
+                    data={sampleData}
+                    margin={{
+                      top: 0,
+                      right: 0,
+                      left: 0,
+                      bottom: 0,
+                    }}
+                  >
+                    <Bar dataKey="sales" fill="rgb(192 132 252)" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       ) : (
         ""
