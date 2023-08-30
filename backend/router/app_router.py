@@ -18,30 +18,41 @@ async def catPridiction(city: str, date: str):
         out = "%Y-%m-%d"
         date = (datetime.strptime(date, inp)).strftime(out)
         rs = {}
+        rs['success'] = True
+        rs['city'] = city
+        rs["date"] = date
+        rs["products"] = []
         for i in cat:
-            rs[i] = await aiModel(i, city, date)
-        rs['success'] = 1
+            rs["products"].append({
+                "name": i,
+                "quantity": await aiModel(i, city, date)
+            })
         return JSONResponse(rs, status_code=200)
     except Exception as e:
-        return JSONResponse({'success': 0, 'error': str(e)}, status_code=404)
+        return JSONResponse({'success': False, 'error': str(e)}, status_code=404)
 
 @router.post("/days-predictions")
-async def rangeOfPridiction(city: str, dates: str, day: int):
+async def rangeOfPridiction(city: str, date: str, days: int):
     try:
-        if day > 30:
-            return JSONResponse({'success': 0, 'error': "Unable to provide you data for more than 30 days."}, status_code=504)
+        if days > 30:
+            return JSONResponse({'success': False, 'error': "Unable to provide you data for more than 30 days."}, status_code=504)
     
         inp = "%d-%m-%Y"
         out = "%Y-%m-%d"
-        date1 = datetime.strptime((datetime.strptime(dates, inp)).strftime(out), out)
+        date1 = datetime.strptime((datetime.strptime(date, inp)).strftime(out), out)
         a = []
-        for i in range(day):
+        for i in range(days):
             rs = {}
             rs["date"] = (date1+timedelta(days=i)).strftime(out)
-            rs["product"] = {}
+            rs["products"] = []
             for j in cat:
-                rs["product"][j] = await aiModel(j, city, (date1+timedelta(days=i)).strftime(out))
+                rs["products"].append({
+                    "name": j,
+                    "quantity": await aiModel(j, city, (date1+timedelta(days=i)).strftime(out))
+                })
             a.append(rs)
-        return JSONResponse({'success': 1, 'data': a}, status_code=200)
+        return JSONResponse({'success': True, 'city': city, 'data': a}, status_code=200)
     except Exception as e:
-        return JSONResponse({'success': 0, 'error': str(e)}, status_code=404)
+        return JSONResponse({'success': False, 'error': str(e)}, status_code=404)
+
+
