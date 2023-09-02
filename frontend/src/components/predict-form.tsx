@@ -36,7 +36,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { capitalize } from "@/lib/utils"
+import { capitalize, isPastDate } from "@/lib/utils"
 
 export default function PredictForm() {
   const [data, setData] = useState<Data>()
@@ -73,21 +73,14 @@ export default function PredictForm() {
       return
     }
 
-    // Converting DD-MM-YY to MM-DD-YY
-    const _date = data.date.split("-")
-    const predictDate = `${_date[1]}-${_date[0]}-${_date[2]}`
-
-    const differenceBetweenDates = new Date(predictDate).getTime() - Date.now()
-    console.log(differenceBetweenDates)
-
     // If the date is older than today then the difference will be negative, so can't predict
-    if (differenceBetweenDates < 0) {
+    if (isPastDate(data.date)) {
       setError("Please choose future dates for prediction")
       return
     }
 
     setError(null)
-    await refetch()
+    refetch()
   }
 
   return (

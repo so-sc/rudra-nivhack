@@ -16,10 +16,10 @@ import {
 import { Button } from "@/components/ui/button"
 import { DatePicker } from "@/components/date-picker"
 import { Data } from "@/lib/types"
-import Link from "next/link"
 import { FormEvent, useState } from "react"
 import { Slider } from "@/components/ui/slider"
 import { useQuery } from "@tanstack/react-query"
+import { capitalize, isPastDate } from "@/lib/utils"
 
 type RangeData = Data & {
   days?: number
@@ -27,11 +27,11 @@ type RangeData = Data & {
 
 export default function RangeForm() {
   const [data, setData] = useState<RangeData>()
-  const [response, setResponse] = useState()
+  const [error, setError] = useState<string | null>(null)
 
-  const { 
+  const {
     isInitialLoading,
-    error,
+    error: err,
     data: res,
     refetch,
   } = useQuery({
@@ -39,7 +39,7 @@ export default function RangeForm() {
     enabled: false,
     queryFn: () =>
       fetch(
-        `http://localhost:8000/api/v1/days-predictions?city=${data?.city}&dates=${data?.date}&day=${data?.days}`,
+        `http://localhost:8000/api/v1/days-predictions?city=${data?.city}&date=${data?.date}&days=${data?.days}`,
         {
           method: "POST",
           headers: {
@@ -52,6 +52,23 @@ export default function RangeForm() {
 
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    console.log(data)
+    if (!data?.city || !data.date) {
+      setError("Set the required parameters")
+      return
+    }
+
+    // If the date is older than today then the difference will be negative, so can't predict
+    if (isPastDate(data.date)) {
+      setError("Please choose future dates for prediction")
+      return
+    }
+
+    // If days slider is not moved set it default to 7
+    if (!data.days) {
+      data.days = 7
+    }
+
     refetch()
   }
   console.log(res)
@@ -90,35 +107,54 @@ export default function RangeForm() {
             Get Ranged Data
           </Button>
         </div>
+        <div className="text-center mt-2 text-lg text-red-500 font-bold">
+          {error !== null && <p>{error}</p>}
+        </div>
         {res ? (
           <>
             <h2 className="scroll-m-20 mt-8 text-3xl lg:text-4xl font-semibold tracking-tight transition-colors first:mt-0">
-              Range of Prediction of products in {data?.city}
+              Range of Prediction of products in {capitalize(res.city)}
             </h2>
             <Table className="overflow-x-scroll w-full min-w-[25rem] no-scroll mt-8">
               {/* <TableCaption>Required Inventory.</TableCaption> */}
               <TableHeader>
                 <TableRow>
                   <TableHead>Date</TableHead>
-                  <TableHead>Iphone</TableHead>
-                  <TableHead>Kurtha</TableHead>
-                  <TableHead>Umbrella</TableHead>
+                  <TableHead>City</TableHead>
+                  <TableHead>Product</TableHead>
+                  <TableHead>Quantity</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {res.data.map((item: any) => (
-                  <TableRow key={item.date}>
-                    <TableCell className="font-medium">{item.date}</TableCell>
-                    <TableCell className="font-medium">
-                      {item.product.iphone}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {item.product.kurtha}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {item.product.umbrella}
-                    </TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow key={item.date}>
+                      <TableCell className="font-medium">{item.date}</TableCell>
+                      <TableCell className="font-medium">
+                        {capitalize(res.city)}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {item.products.map((product: any) => (
+                          <div
+                            key={product.name}
+                            className="border-b last:border-b-0 py-2"
+                          >
+                            {capitalize(product.name)}
+                          </div>
+                        ))}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {item.products.map((product: any) => (
+                          <div
+                            key={product.name}
+                            className="border-b last:border-b-0 py-2"
+                          >
+                            {product.quantity}
+                          </div>
+                        ))}
+                      </TableCell>
+                    </TableRow>
+                  </>
                 ))}
               </TableBody>
             </Table>
