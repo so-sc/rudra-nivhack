@@ -55,7 +55,7 @@ export default function Dashboard() {
   ]
 
   return (
-    <div className="dashboard min-h-screen py-24 px-4 md:p-24 flex flex-col gap-8">
+    <div className="dashboard flex flex-col gap-8">
       <div className="text-center">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-6xl">
           Dashboard
@@ -70,16 +70,16 @@ export default function Dashboard() {
       <div className={`py-4 mx-auto grid w-full gap-8 place-items-center`}>
         <Tabs
           defaultValue="specific"
-          className="w-full flex flex-col items-center justify-start min-h-screen"
+          className="w-full flex flex-col items-center justify-start"
         >
           <TabsList>
             <TabsTrigger value="specific">Specific Date</TabsTrigger>
             <TabsTrigger value="range">Range</TabsTrigger>
           </TabsList>
-          <TabsContent value="specific" className="w-full min-h-screen">
+          <TabsContent value="specific" className="w-full">
             <PredictForm />
           </TabsContent>
-          <TabsContent value="range" className="w-full min-h-screen">
+          <TabsContent value="range" className="w-full">
             <RangeForm />
           </TabsContent>
         </Tabs>
