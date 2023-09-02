@@ -74,7 +74,7 @@ export default function RangeForm() {
   console.log(res)
 
   return (
-    <div className="w-1/2 mx-auto mt-2 flex mb-16">
+    <div className="w-11/12 lg:w-1/2 mx-auto mt-2 flex mb-16">
       <form onSubmit={handleFormSubmit} className="w-full">
         <div className="transition-all w-full flex flex-col items-center gap-4">
           <div className="w-full border-black border">
@@ -112,7 +112,7 @@ export default function RangeForm() {
         </div>
         {res ? (
           <>
-            <h2 className="scroll-m-20 mt-8 text-3xl lg:text-4xl font-semibold tracking-tight transition-colors first:mt-0">
+            <h2 className="scroll-m-20 mt-8 text-3xl text-center lg:text-4xl font-semibold tracking-tight transition-colors first:mt-0">
               Range of Prediction of products in {capitalize(res.city)}
             </h2>
             <Table className="overflow-x-scroll w-full min-w-[25rem] no-scroll mt-8">
