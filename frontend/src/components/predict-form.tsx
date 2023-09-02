@@ -39,60 +39,15 @@ import {
 import { capitalize } from "@/lib/utils"
 
 export default function PredictForm() {
-  const sampleData: Sales[] = [
-    {
-      sales: 400,
-      month: "Jan",
-    },
-    {
-      sales: 300,
-      month: "Feb",
-    },
-    {
-      sales: 200,
-      month: "Mar",
-    },
-    {
-      sales: 278,
-      month: "Apr",
-    },
-    {
-      sales: 189,
-      month: "Jun",
-    },
-    {
-      sales: 239,
-      month: "Jul",
-    },
-    {
-      sales: 400,
-      month: "Aug",
-    },
-    {
-      sales: 450,
-      month: "Sep",
-    },
-    {
-      sales: 600,
-      month: "Oct",
-    },
-    {
-      sales: 578,
-      month: "Nov",
-    },
-    {
-      sales: 600,
-      month: "Dec",
-    },
-  ]
-
   const [data, setData] = useState<Data>()
+  const [error, setError] = useState<string | null>(null)
 
+  // TODO: Make context to store the data
   const { specificData, setSpecificData } = useContext(PredictionContext)
 
   const {
     isInitialLoading,
-    error,
+    error: err,
     data: res,
     refetch,
   } = useQuery({
@@ -113,6 +68,25 @@ export default function PredictForm() {
 
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (!data?.city || !data.date) {
+      setError("Set the required parameters")
+      return
+    }
+
+    // Converting DD-MM-YY to MM-DD-YY
+    const _date = data.date.split("-")
+    const predictDate = `${_date[1]}-${_date[0]}-${_date[2]}`
+
+    const differenceBetweenDates = new Date(predictDate).getTime() - Date.now()
+    console.log(differenceBetweenDates)
+
+    // If the date is older than today then the difference will be negative, so can't predict
+    if (differenceBetweenDates < 0) {
+      setError("Please choose future dates for prediction")
+      return
+    }
+
+    setError(null)
     await refetch()
   }
 
@@ -146,7 +120,10 @@ export default function PredictForm() {
           </div>
         </form>
       </div>
-      {res ? (
+      <div className="text-center mt-2 text-lg text-red-500 font-bold">
+        {error !== null && <p>{error}</p>}
+      </div>
+      {res && error === null ? (
         <div>
           <div className="w-full grid lg:grid-cols-2 mt-16">
             <div className="mx-4 self-center">
@@ -161,7 +138,7 @@ export default function PredictForm() {
                 </TableHeader>
                 <TableBody>
                   {res.products.map((product: any) => (
-                    <TableRow>
+                    <TableRow key={product.name}>
                       <TableCell className="font-medium">
                         {/* Capitalizing the first letter of the product */}
                         {capitalize(product.name)}
@@ -182,7 +159,7 @@ export default function PredictForm() {
               <CardHeader>
                 <CardTitle>Inventory for {capitalize(res.city)}</CardTitle>
                 <CardDescription>
-                  Here are the top demanded products at {res.date}
+                  Here is the demand of products at {res.date}
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex pb-4">
